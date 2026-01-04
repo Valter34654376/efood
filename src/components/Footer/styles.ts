@@ -1,21 +1,33 @@
 import styled from 'styled-components'
 
 export const Container = styled.footer`
-  background-color: #e66767;
-  color: #fff;
-  padding: 32px;
-  margin-top: 48px;
+  background-color: #ffebd9;
+  padding: 40px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`
+
+export const Logo = styled.img`
+  margin-bottom: 32px;
+  height: 55px;
 `
 
 export const Social = styled.div`
   display: flex;
-  justify-content: center;
-  gap: 24px;
-  font-size: 24px;
+  gap: 16px;
+  margin-bottom: 32px;
+
+  img {
+    width: 24px;
+    height: 24px;
+  }
 `
 
 export const Copy = styled.p`
+  max-width: 480px;
   text-align: center;
-  margin-top: 16px;
-  font-size: 14px;
+  font-size: 10px;
+  line-height: 16px;
+  color: #e66767;
 `

@@ -5,15 +5,15 @@ const Header = () => {
   return (
     <S.Container>
       <S.Content>
-        <img src={logo} alt="efood" />
+        <S.Left>Restaurantes</S.Left>
 
-        <S.Title>
-          Viva experiências gastronômicas
-        </S.Title>
+        <S.Logo>
+          <img src={logo} alt="efood" />
+        </S.Logo>
 
-        <S.Subtitle>
-          no conforto da sua casa
-        </S.Subtitle>
+        <S.CartButton>
+          0 produto(s) no carrinho
+        </S.CartButton>
       </S.Content>
     </S.Container>
   )

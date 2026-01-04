@@ -1,39 +1,36 @@
 import styled from 'styled-components'
+import pattern from '../../assets/pattern.png'
 
 export const Container = styled.header`
-  width: 100%;
-  min-height: 260px;
-  background: linear-gradient(135deg, #8b0000, #b22222);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  background-color: #fff5eb;
+  background-image: url(${pattern});
+  background-repeat: repeat;
+  padding: 40px 0;
 `
 
 export const Content = styled.div`
   max-width: 1100px;
-  padding: 24px;
-  text-align: center;
+  margin: 0 auto;
 
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-`
+  text-align: center;
 
-export const Icon = styled.span`
-  font-size: 3rem;
-  margin-bottom: 12px;
+  img {
+    height: 57px;
+    margin-bottom: 24px;
+  }
 `
 
 export const Title = styled.h1`
-  color: #fff8ee;
-  font-size: clamp(1.8rem, 4vw, 3rem);
-  font-weight: 700;
-  margin-bottom: 10px;
+  color: #e66767;
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 8px;
 `
 
-export const Subtitle = styled.h2`
-  color: #f5e6d3;
-  font-size: clamp(1.1rem, 2.5vw, 1.6rem);
-  font-weight: 400;
+export const Subtitle = styled.p`
+  color: #e66767;
+  font-size: 18px;
 `
