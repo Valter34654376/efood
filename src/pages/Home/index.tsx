@@ -29,11 +29,12 @@ type Restaurante = {
 const Home = () => {
   const [restaurantes, setRestaurantes] = useState<Restaurante[]>([])
 
-useEffect(() => {
-  fetch('/api/efood/restaurantes')
-    .then(res => res.json())
-    .then(data => setRestaurantes(data))
-}, [])
+  useEffect(() => {
+    fetch('https://api-ebac.vercel.app/api/efood/restaurantes')
+      .then(res => res.json())
+      .then(data => setRestaurantes(data))
+  }, [])
+
   return (
     <>
       <Header />
