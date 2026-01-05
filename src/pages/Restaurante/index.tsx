@@ -1,14 +1,10 @@
+import { useEffect, useState } from 'react'
+import { useParams, useNavigate } from 'react-router-dom'
 import HeaderRestaurant from '../../components/HeaderRestaurant'
 import Footer from '../../components/Footer'
 import MenuCard from '../../components/MenuCard'
 import Cart from '../../components/Cart'
 import styled from 'styled-components'
-import { useParams, useNavigate } from 'react-router-dom'
-
-import japonesaImg from '../../assets/japonesa.png'
-import pizzaImg from '../../assets/pizza.png'
-import hamburguerImg from '../../assets/hamburguer.png'
-import massasImg from '../../assets/massas.png'
 
 const Banner = styled.div<{ bg: string }>`
   background-image: url(${props => props.bg});
@@ -37,64 +33,25 @@ const BackButton = styled.button`
   margin-bottom: 16px;
 `
 
-const dados = {
-  italiana: {
-    nome: 'La Dolce Vita Trattoria',
-    imagem: pizzaImg,
-    produtos: Array.from({ length: 6 }).map((_, i) => ({
-      id: i + 1,
-      nome: 'Pizza Marguerita',
-      descricao: 'Molho de tomate, mussarela e manjericão.',
-      preco: 60.9
-    }))
-  },
-  japonesa: {
-    nome: 'Hioki Sushi',
-    imagem: japonesaImg,
-    produtos: Array.from({ length: 6 }).map((_, i) => ({
-      id: i + 1,
-      nome: 'Combo Sushi',
-      descricao: 'Sushis e sashimis frescos.',
-      preco: 89.9
-    }))
-  },
-  hamburguer: {
-    nome: 'Burger House',
-    imagem: hamburguerImg,
-    produtos: Array.from({ length: 6 }).map((_, i) => ({
-      id: i + 1,
-      nome: 'Hambúrguer Artesanal',
-      descricao: 'Carne suculenta e pão brioche.',
-      preco: 42.9
-    }))
-  },
-  massas: {
-    nome: 'Cantina da Nona',
-    imagem: massasImg,
-    produtos: Array.from({ length: 6 }).map((_, i) => ({
-      id: i + 1,
-      nome: 'Lasanha',
-      descricao: 'Massa artesanal com molho bolonhesa.',
-      preco: 55.9
-    }))
-  }
-}
-
 const Restaurante = () => {
   const { id } = useParams()
   const navigate = useNavigate()
+  const [restaurante, setRestaurante] = useState<any>(null)
 
-  const restaurante = dados[id as keyof typeof dados]
+  useEffect(() => {
+    fetch(`https://api-ebac.vercel.app/api/efood/restaurantes/${id}`)
+      .then(res => res.json())
+      .then(data => setRestaurante(data))
+  }, [id])
+
   if (!restaurante) return null
 
   return (
     <>
-      {/* HEADER DO RESTAURANTE (COM CARRINHO) */}
       <HeaderRestaurant />
       <Cart />
 
-      {/* BANNER */}
-      <Banner bg={restaurante.imagem} />
+      <Banner bg={restaurante.capa} />
 
       <Container>
         <BackButton onClick={() => navigate('/')}>
@@ -102,13 +59,13 @@ const Restaurante = () => {
         </BackButton>
 
         <Grid>
-          {restaurante.produtos.map(item => (
+          {restaurante.cardapio.map((item: any) => (
             <MenuCard
               key={item.id}
               id={item.id}
               titulo={item.nome}
               descricao={item.descricao}
-              imagem={restaurante.imagem}
+              imagem={item.foto}
               preco={item.preco}
             />
           ))}

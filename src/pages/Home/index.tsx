@@ -1,13 +1,8 @@
+import { useEffect, useState } from 'react'
 import Header from '../../components/Header'
 import Footer from '../../components/Footer'
 import PizzaCard from '../../components/PizzaCard'
 import styled from 'styled-components'
-import { Link } from 'react-router-dom'
-
-import japonesaImg from '../../assets/japonesa.png'
-import italianaImg from '../../assets/pizza.png'
-import hamburguerImg from '../../assets/hamburguer.png'
-import massasImg from '../../assets/massas.png'
 
 const Container = styled.main`
   max-width: 1100px;
@@ -21,63 +16,40 @@ const Grid = styled.div`
   gap: 48px;
 `
 
-const restaurantes = [
-  {
-    id: 'japonesa',
-    titulo: 'Hioki Sushi',
-    descricao: 'Culinária japonesa no conforto da sua casa.',
-    tipo: 'Japonesa',
-    avaliacao: 4.9,
-    destaque: true,
-    imagem: japonesaImg
-  },
-  {
-    id: 'italiana',
-    titulo: 'La Dolce Vita Trattoria',
-    descricao: 'Autêntica cozinha italiana.',
-    tipo: 'Italiana',
-    avaliacao: 4.6,
-    imagem: italianaImg
-  },
-  {
-    id: 'hamburguer',
-    titulo: 'Burger House',
-    descricao: 'Hambúrgueres artesanais.',
-    tipo: 'Hamburgueria',
-    avaliacao: 4.8,
-    imagem: hamburguerImg
-  },
-  {
-    id: 'massas',
-    titulo: 'Cantina da Nona',
-    descricao: 'Massas tradicionais italianas.',
-    tipo: 'Massas',
-    avaliacao: 4.7,
-    imagem: massasImg
-  }
-]
+type Restaurante = {
+  id: number
+  titulo: string
+  descricao: string
+  tipo: string
+  avaliacao: number
+  capa: string
+  destacado: boolean
+}
 
 const Home = () => {
+  const [restaurantes, setRestaurantes] = useState<Restaurante[]>([])
+
+useEffect(() => {
+  fetch('/api/efood/restaurantes')
+    .then(res => res.json())
+    .then(data => setRestaurantes(data))
+}, [])
   return (
     <>
       <Header />
       <Container>
         <Grid>
           {restaurantes.map(item => (
-            <Link
+            <PizzaCard
               key={item.id}
-              to={`/restaurante/${item.id}`}
-              style={{ textDecoration: 'none' }}
-            >
-              <PizzaCard
-                titulo={item.titulo}
-                descricao={item.descricao}
-                imagem={item.imagem}
-                tipo={item.tipo}
-                avaliacao={item.avaliacao}
-                destaque={item.destaque}
-              />
-            </Link>
+              id={item.id}
+              titulo={item.titulo}
+              descricao={item.descricao}
+              imagem={item.capa}
+              tipo={item.tipo}
+              avaliacao={item.avaliacao}
+              destaque={item.destacado}
+            />
           ))}
         </Grid>
       </Container>

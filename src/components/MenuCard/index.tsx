@@ -19,11 +19,14 @@ const MenuCard = ({ id, titulo, descricao, imagem, preco }: Props) => {
     <>
       <Card>
         <Image src={imagem} alt={titulo} />
+
         <Content>
           <Title>{titulo}</Title>
           <Description>{descricao}</Description>
 
-          <Button onClick={() => setOpen(true)}>Ver mais</Button>
+          <Button onClick={() => setOpen(true)}>
+            Comprar
+          </Button>
         </Content>
       </Card>
 

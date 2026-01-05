@@ -1,4 +1,12 @@
-import { Button, Close, Container, Content, Image, Overlay, Title } from './styles'
+import {
+  Button,
+  Close,
+  Container,
+  Content,
+  Image,
+  Overlay,
+  Title
+} from './styles'
 
 type Props = {
   titulo: string
