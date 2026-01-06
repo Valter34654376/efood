@@ -13,7 +13,7 @@ import {
 } from './styles'
 
 type Props = {
-  id: number
+   id?: number | string     // <- opcional agora
   titulo: string
   descricao: string
   imagem: string
@@ -23,7 +23,6 @@ type Props = {
 }
 
 const PizzaCard = ({
-  id,
   titulo,
   descricao,
   imagem,
@@ -51,7 +50,7 @@ const PizzaCard = ({
 
       <Description>{descricao}</Description>
 
-      <Button onClick={() => navigate(`/restaurante/${id}`)}>
+      <Button onClick={() => navigate('/restaurante/1')}>
         Saiba mais
       </Button>
     </Card>

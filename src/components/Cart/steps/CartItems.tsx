@@ -1,25 +1,65 @@
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import { CartContext } from '../../../context/CartContext'
-import { Button } from '../styles'
+import { Button, StepContent, Row, Input } from '../styles'
 
-const CartItems = () => {
-  const { items, removeItem, nextStep } = useContext(CartContext)
+const Delivery = () => {
+  const { nextStep, prevStep } = useContext(CartContext)
 
-  const total = items.reduce((acc, i) => acc + i.preco, 0)
+  const [form, setForm] = useState({
+    receiver: '',
+    address: '',
+    city: '',
+    cep: '',
+    number: '',
+    complement: ''
+  })
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target
+    setForm(prev => ({ ...prev, [name]: value }))
+  }
 
   return (
-    <>
-      {items.map(item => (
-        <div key={item.id}>
-          <strong>{item.titulo}</strong> – R$ {item.preco.toFixed(2)}
-          <button onClick={() => removeItem(item.id)}>🗑</button>
-        </div>
-      ))}
+    <StepContent>
+      <h4>Entrega</h4>
 
-      <p>Total: R$ {total.toFixed(2)}</p>
-      <Button onClick={nextStep}>Continuar com a entrega</Button>
-    </>
+      <label>Quem irá receber</label>
+      <Input name="receiver" value={form.receiver} onChange={handleChange} />
+
+      <label>Endereço</label>
+      <Input name="address" value={form.address} onChange={handleChange} />
+
+      <label>Cidade</label>
+      <Input name="city" value={form.city} onChange={handleChange} />
+
+      <Row>
+        <div>
+          <label>CEP</label>
+          <Input name="cep" value={form.cep} onChange={handleChange} />
+        </div>
+
+        <div>
+          <label>Número</label>
+          <Input name="number" value={form.number} onChange={handleChange} />
+        </div>
+      </Row>
+
+      <label>Complemento (opcional)</label>
+      <Input
+        name="complement"
+        value={form.complement}
+        onChange={handleChange}
+      />
+
+      <Button onClick={nextStep}>
+        Continuar com o pagamento
+      </Button>
+
+      <Button secondary onClick={prevStep}>
+        Voltar para o carrinho
+      </Button>
+    </StepContent>
   )
 }
 
-export default CartItems
+export default Delivery

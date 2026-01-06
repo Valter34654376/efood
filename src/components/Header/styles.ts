@@ -32,5 +32,6 @@ export const Title = styled.h1`
 
 export const Subtitle = styled.p`
   color: #e66767;
-  font-size: 18px;
+  font-size: 30px;
+  font-weight: bold;
 `
